@@ -12,8 +12,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 30px;
+    padding: 5px;
 }
 
 .input-field {
     width: 20%;
+}
+
+label {
+    font-family: sans-serif;
+}
+
+#equation-box {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: 5px solid black;
 }
