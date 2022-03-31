@@ -30,3 +30,9 @@ label {
     padding-right: 10px;
     outline: 5px solid black;
 }
+
+#graph {
+    width: 600px;
+    height: 400px;
+    padding: 10px;
+}

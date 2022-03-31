@@ -6,6 +6,8 @@ var hTranslField
 var vReflBox
 var hReflBox
 var equationTxt
+var graph
+var calculator
 
 // values
 var vScale
@@ -21,6 +23,7 @@ var equation = ""
 // get elements once page loads
 window.onload = function() {
     getElements()
+    setupGraph()
 }
 
 // get elements from html code
@@ -32,6 +35,16 @@ function getElements() {
     vReflBox = document.getElementById("vrefl");
     hReflBox = document.getElementById("hrefl");
     equationTxt = document.getElementById("equation")
+}
+
+// setup desmos graph
+function setupGraph() {
+    graph = document.getElementById("graph")
+    calculator = Desmos.GraphingCalculator(graph, {
+        keypad: false,
+        expressions: false,
+        zoomButtons: false
+    })
 }
 
 // get values
@@ -127,6 +140,8 @@ function update() {
         equation += ")"
     }
 
+    equation += "^2"
+
     if(vTransl !== 0) {
         if(vTransl > 0) {
             equation += "+"
@@ -136,4 +151,10 @@ function update() {
     }
 
     equationTxt.innerText = equation
+
+    updateGraph()
+}
+
+function updateGraph() {
+    calculator.setExpression({ id: "graph1", latex: equation})
 }
