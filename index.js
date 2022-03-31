@@ -7,6 +7,14 @@ var vReflBox
 var hReflBox
 var equationTxt
 
+// values
+var vScale
+var hScale
+var vTransl
+var hTransl
+var vRefl
+var hRefl
+
 // equation
 var equation = ""
 
@@ -15,6 +23,7 @@ window.onload = function() {
     getElements()
 }
 
+// get elements from html code
 function getElements() {
     vScaleField = document.getElementById("vscale")
     hScaleField = document.getElementById("hscale")
@@ -25,41 +34,106 @@ function getElements() {
     equationTxt = document.getElementById("equation")
 }
 
-// updates equation and graph
-function update() {
-    equation = ""
-    
-    if(vReflBox.checked) {
-        equation += "-"
+// get values
+function getValues() {
+    if(vScaleField.value === "") {
+        vScale = 0
+    }
+    else {
+        vScale = vScaleField.value
     }
 
-    if(vScaleField.value !== "" && vScaleField.value !== "0") {
-        equation += vScaleField.value + "["
+    if(hScaleField.value === "") {
+        hScale = 0
+    }
+    else {
+        hScale = Math.round((1 / Math.abs(hScaleField.value)) * 100) / 100
+    }
+
+    if(vTranslField.value === "") {
+        vTransl = 0
+    }
+    else {
+        vTransl = vTranslField.value
+    }
+
+    if(hTranslField === "") {
+        hTransl = 0
+    }
+    else {
+        hTransl = hTranslField.value * -1
+    }
+
+    if(vReflBox.checked) {
+        vRefl = true
+    }
+    else {
+        vRefl = false
     }
 
     if(hReflBox.checked) {
+        hRefl = true
+    }
+    else {
+        hRefl = false
+    }
+}
+
+// updates equation and graph
+function update() {
+    getValues()
+
+    // clear equation
+    equation = ""
+
+    // vertical reflection
+    if(vRefl) {
         equation += "-"
     }
-
-    if(hScaleField.value !== "" && hScaleField.value !== "0") {
-        equation += hScaleField.value
+    
+    // vertical scale
+    if(vScale !== 0) {
+        equation += vScale
     }
 
-    if(hTranslField.value !== "" && hTranslField.value !== "0") {
+    if(vScale !== 0 || hRefl) {
         equation += "("
     }
 
-    equation += "x"
-
-    if(hTranslField.value !== "" && hTranslField.value !== "0") {
-        equation += -hTranslField.value + ")"
+    // horizontal reflection
+    if(hRefl) {
+        equation += "-"
     }
 
-    if(hScaleField.value !== "" && hScaleField.value !== "0") {
-        equation += "]"
+    // horizontal scale
+    if(hScale !== 0) {
+        equation += hScale
     }
-    
-    equation += "^2"
+
+    if(hTransl !== 0) {
+        equation += "(x"
+
+        if(hTransl > 0) {
+            equation += "+"
+        }
+
+        equation += hTransl + ")"
+    }
+    else {
+        equation += "x"
+    }
+
+    if(vScale !== 0 || hRefl) {
+        equation += ")"
+    }
+
+    if(vTransl !== 0) {
+        if(vTransl > 0) {
+            equation += "+"
+        }
+
+        equation += vTransl
+    }
 
     equationTxt.innerText = equation
 }
