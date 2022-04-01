@@ -10,19 +10,29 @@
         <a id="title">Transformations Calculator</a>
     </body>
 
+    <div>
+        <a>Current Mode: Quadratic</a>
+    </div>
+
+    <div class="flex-horizontal">
+        <button>Quadratic</button>
+        <button>Radical</button>
+        <button>Reciprocal</button>
+    </div>
+
     <div class="flex">
         <label for "vscale">Vertical Scale</label>
-        <input type="number" id="vscale" class="input-field">
+        <input type="number" id="vscale" class="input-field" onkeyup="update()">
         <label for "hscale">Horizontal Scale</label>
-        <input type="number" id="hscale" class="input-field">
+        <input type="number" id="hscale" class="input-field" onkeyup="update()">
         <label for "vtransl">Vertical Translation</label>
-        <input type="number" id="vtransl" class="input-field">
+        <input type="number" id="vtransl" class="input-field" onkeyup="update()">
         <label for "htransl">Horizontal Translation</label>
-        <input type="number" id="htransl" class="input-field">
+        <input type="number" id="htransl" class="input-field" onkeyup="update()">
         <label for "vrefl">Vertical Reflection</label>
-        <input type="checkbox" id="vrefl" class="input-field">
+        <input type="checkbox" id="vrefl" class="input-field" onchange="update()">
         <label for "hrefl">Horizontal Reflection</label>
-        <input type="checkbox" id="hrefl" class="input-field">
+        <input type="checkbox" id="hrefl" class="input-field" onchange="update()">
         <button type="button" onclick="update()">Update</button>
     </div>
     

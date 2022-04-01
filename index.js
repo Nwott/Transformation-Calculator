@@ -92,14 +92,9 @@ function getValues() {
     }
 }
 
-// updates equation and graph
-function update() {
-    getValues()
-
-    // clear equation
-    equation = ""
-
-    // vertical reflection
+// quadratic equation format
+function quadratic() {
+// vertical reflection
     if(vRefl) {
         equation += "-"
     }
@@ -149,6 +144,64 @@ function update() {
 
         equation += vTransl
     }
+}
+
+// format radical function
+function radical() {
+    // vertical reflection
+    if(vRefl) {
+        equation += "-"
+    }
+    
+    // vertical scale
+    if(vScale !== 0) {
+        equation += vScale
+    }
+
+    equation += String.raw`\sqrt{`
+
+    // horizontal reflection
+    if(hRefl) {
+        equation += "-"
+    }
+
+    // horizontal scale
+    if(hScale !== 0) {
+        equation += hScale
+    }
+
+    if(hTransl !== 0) {
+        equation += "(x"
+
+        if(hTransl > 0) {
+            equation += "+"
+        }
+
+        equation += hTransl + ")"
+    }
+    else {
+        equation += "x"
+    }
+
+    equation += "}"
+
+    if(vTransl !== 0) {
+        if(vTransl > 0) {
+            equation += "+"
+        }
+
+        equation += vTransl
+    }
+}
+
+// updates equation and graph
+function update() {
+    getValues()
+
+    // clear equation
+    equation = ""
+
+    radical()
 
     equationTxt.innerText = equation
 
