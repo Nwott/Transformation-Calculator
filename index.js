@@ -8,10 +8,10 @@ var hReflBox
 var equationTxt
 var graph
 var calculator
-var functionTxt
 var quadraticBtn
 var radicalBtn
 var reciprocalBtn
+var desmosEquation
 
 // values
 var vScale
@@ -33,6 +33,8 @@ window.onload = function() {
     getElements()
     setupGraph()
     setListeners()
+    changeBtnColour(quadraticBtn)
+    update()
 }
 
 // get elements from html code
@@ -44,21 +46,35 @@ function getElements() {
     vReflBox = document.getElementById("vrefl");
     hReflBox = document.getElementById("hrefl");
     equationTxt = document.getElementById("equation")
-    functionTxt = document.getElementById("function-txt")
     quadraticBtn = document.getElementById("quadratic-btn")
     radicalBtn = document.getElementById("radical-btn")
     reciprocalBtn = document.getElementById("reciprocal-btn")
+    desmosEquation = document.getElementById("equation-desmos")
 }
 
 function setListeners() {
     quadraticBtn.addEventListener("click", function() {
-        updateFunction("Quadratic")})
+        updateFunction("Quadratic")
+        changeBtnColour(quadraticBtn)
+    })
 
     radicalBtn.addEventListener("click", function() {
-        updateFunction("Radical")})
+        updateFunction("Radical")
+        changeBtnColour(radicalBtn)
+    })
 
     reciprocalBtn.addEventListener("click", function() {
-        updateFunction("Reciprocal")})
+        updateFunction("Reciprocal")
+        changeBtnColour(reciprocalBtn)
+    })
+}
+
+function changeBtnColour(btn) {
+    quadraticBtn.className = "btn btn-secondary"
+    radicalBtn.className = "btn btn-secondary"
+    reciprocalBtn.className = "btn btn-secondary"
+
+    btn.className = "btn btn-primary"
 }
 
 // setup desmos graph
@@ -318,14 +334,18 @@ function update() {
     if(func === "Radical") {
         radical()
         equationTxt.innerText = radEquation
+        desmosEquation.style.display = "block"
+        desmosEquation.innerText = "If pasting into Desmos: " + equation
     }
     else if(func === "Quadratic") {
         quadratic()
         equationTxt.innerText = equation
+        desmosEquation.style.display = "none"
     }
     else if(func === "Reciprocal") {
         reciprocal()
         equationTxt.innerText = equation
+        desmosEquation.style.display = "none"
     }
 
     updateGraph()
@@ -337,6 +357,5 @@ function updateGraph() {
 
 function updateFunction(mode) {
     func = mode
-    functionTxt.innerText = "Function: " + func
     update()
 }
